@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
@@ -16,6 +16,8 @@ async function run() {
     
     // Get the database and collection on which to run the operation
     const musicCollection = client.db("pod-music").collection("musics");
+    const saveMusicCollection = client.db("pod-music").collection("saved");
+    const usersMusicCollection = client.db("pod-music").collection("users");
 
     app.get('/',(req,res)=>{
       res.send('listen a song')
@@ -24,6 +26,35 @@ async function run() {
     app.get('/music',async(req,res)=>{
       const music = await musicCollection.find().toArray()
       res.send(music)
+    })
+
+    app.get('/saved',async(req,res)=>{
+      const email = req.query.email;
+      if(!email){
+        res.send([])
+      }
+      const query = {email:email}
+      const result = await saveMusicCollection.find(query).toArray()
+      res.send(result)
+    })
+
+    app.post('/saved',async(req,res)=>{
+      const item = req.body;
+      const result = await saveMusicCollection.insertOne(item)
+      res.send(result)
+    })
+
+    app.delete('/saved/:id',async(req,res)=>{
+      const id = req.params.id;
+      const query = {_id:new ObjectId(id)}
+      const result = await saveMusicCollection.deleteOne(query)
+      res.send(result)
+    })
+
+    app.post('/users',async(req,res)=>{
+      const user = req.body;
+      const result = await usersMusicCollection.insertOne(user)
+      res.send(result)
     })
 
     
