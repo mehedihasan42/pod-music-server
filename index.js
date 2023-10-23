@@ -20,6 +20,7 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   }
+
 });
 
 async function run() {
@@ -43,6 +44,7 @@ async function run() {
       if(!email){
         res.send([])
       }
+
       const query = {email:email}
       const result = await saveMusicCollection.find(query).toArray()
       res.send(result)
@@ -76,12 +78,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-// app.get('/',(req,res)=>{
-//   res.send('listen a song')
-// })
 
 
   app.listen(port, () => {
