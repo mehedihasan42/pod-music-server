@@ -6,9 +6,13 @@ const ObjectId = require('mongodb').ObjectId;
 const port = process.env.PORT || 5000;
 
 
-app.use(cors());
+app.use(cors({
+  origin:["https://pod-music-server-side.vercel.app"],
+  methods: ["POST","GET","DELETE"],
+  credentials:true
+}));
 app.use(express.json());
-app.use(express.static("dist"))
+// app.use(express.static("dist"))
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.watftgx.mongodb.net/?retryWrites=true&w=majority`;
