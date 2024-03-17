@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static("dist"))
+// app.use(express.static("dist"))
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.watftgx.mongodb.net/?retryWrites=true&w=majority`;
@@ -33,6 +33,10 @@ async function run() {
     const usersMusicCollection = client.db("pod-music").collection("users");
 
     
+    app.get('/',async(req,res)=>{
+      const result = "hello world";
+      res.send(result)
+    })
 
     app.get('/api/music',async(req,res)=>{
       const music = await musicCollection.find().toArray()
