@@ -28,7 +28,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const musicCollection = client.db("pod-music").collection("music");
+    const musicCollection = client.db("pod-music").collection("musics");
     const saveMusicCollection = client.db("pod-music").collection("saved");
     const usersMusicCollection = client.db("pod-music").collection("users");
 
