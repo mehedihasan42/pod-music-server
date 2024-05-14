@@ -28,7 +28,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const musicCollection = client.db("pod-music").collection("musics");
+    const musicCollection = client.db("pod-music").collection("music");
     const saveMusicCollection = client.db("pod-music").collection("saved");
     const usersMusicCollection = client.db("pod-music").collection("users");
 
@@ -65,6 +65,11 @@ async function run() {
       const query = {_id: new ObjectId(id)}
       const result = await saveMusicCollection.deleteOne(query)
       res.send(result)
+    })
+
+    app.get("/api/users",async(req,res)=>{
+        const result = await usersMusicCollection.find().toArray();
+        res.send(result)
     })
 
     app.post('/api/users',async(req,res)=>{
