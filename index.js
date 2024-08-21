@@ -25,10 +25,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const musicCollection = client.db("pod-music").collection("musics");
+    const musicCollection = client.db("pod-music").collection("music");  //convert music to musics before give it production
     const saveMusicCollection = client.db("pod-music").collection("saved");
     const usersMusicCollection = client.db("pod-music").collection("users");
 
@@ -41,6 +40,12 @@ async function run() {
     app.get('/api/music',async(req,res)=>{
       const music = await musicCollection.find().toArray()
       res.send(music)
+    })
+
+    app.post('/api/music',async (req, res) => {
+      const newItem = req.body;
+      const result = await coursesCollection.insertOne(newItem)
+      res.send(result)
     })
 
     app.get('/api/saved',async(req,res)=>{
@@ -78,11 +83,9 @@ async function run() {
       res.send(result)
     })
 
-    // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
     // await client.close();
   }
 }
