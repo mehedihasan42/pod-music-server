@@ -44,7 +44,7 @@ async function run() {
 
     app.post('/api/music',async (req, res) => {
       const newItem = req.body;
-      const result = await coursesCollection.insertOne(newItem)
+      const result = await musicCollection.insertOne(newItem)
       res.send(result)
     })
 
