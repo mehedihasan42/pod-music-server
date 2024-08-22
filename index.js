@@ -27,7 +27,7 @@ async function run() {
   try {
     await client.connect();
 
-    const musicCollection = client.db("pod-music").collection("music");  //convert music to musics before give it production
+    const musicCollection = client.db("pod-music").collection("musics");  //convert music to musics before give it production
     const saveMusicCollection = client.db("pod-music").collection("saved");
     const usersMusicCollection = client.db("pod-music").collection("users");
 
