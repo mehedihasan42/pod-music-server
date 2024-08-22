@@ -27,7 +27,7 @@ async function run() {
   try {
     await client.connect();
 
-    const musicCollection = client.db("pod-music").collection("musics");  //convert music to musics before give it production
+    const musicCollection = client.db("pod-music").collection("music");  //convert music to musics before give it production
     const saveMusicCollection = client.db("pod-music").collection("saved");
     const usersMusicCollection = client.db("pod-music").collection("users");
 
@@ -46,6 +46,29 @@ async function run() {
       const newItem = req.body;
       const result = await musicCollection.insertOne(newItem)
       res.send(result)
+    })
+
+    app.patch('/api/music/:id',async(req,res)=>{
+        const id = req.params.id;
+        const {title,singer,lyricist,composer,label,Distributor,ISRC,UPC,CopR,Year,Link} = req.body;
+        const filter = {_id: new ObjectId(id)};
+        const updateDoc = {
+          $set:{
+            title:title,
+            singer:singer,
+            lyricist:lyricist,
+            composer:composer,
+            label:label,
+            Distributor:Distributor,
+            ISRC:ISRC,
+            UPC:UPC,
+            CopR:CopR,
+            Year:Year,
+            Link:Link,
+          }
+        }
+        const result = await musicCollection.updateMany(filter,updateDoc)
+        res.send(result)
     })
 
     app.get('/api/saved',async(req,res)=>{
