@@ -48,7 +48,7 @@ async function run() {
       res.send(result)
     })
 
-    app.patch('/api/music/:id',async(req,res)=>{
+    app.put('/api/music/:id',async(req,res)=>{
         const id = req.params.id;
         const {title,singer,lyricist,composer,label,Distributor,ISRC,UPC,CopR,Year,Link} = req.body;
         const filter = {_id: new ObjectId(id)};
