@@ -109,6 +109,11 @@ async function run() {
 
     app.post('/api/users',async(req,res)=>{
       const user = req.body;
+      const query = {email:user.email}
+      const existingUser = await usersMusicCollection.findOne(query)
+      if(existingUser){
+        return res.send({message: 'user already exit'})
+      }
       const result = await usersMusicCollection.insertOne(user)
       res.send(result)
     })
