@@ -135,7 +135,7 @@ async function run() {
       const filter = {_id:new ObjectId(id)};
       const updateDoc={
         $set:{
-          role:'approve'
+          role2:'approve'
         }
       }
       const result = await usersMusicCollection.updateOne(filter,updateDoc)
