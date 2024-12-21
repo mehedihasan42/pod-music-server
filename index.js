@@ -50,7 +50,7 @@ async function run() {
 
     app.put('/api/music/:id',async(req,res)=>{
         const id = req.params.id;
-        const {AlbumTitle,TrackTitles,Singer,Lyricist,Composers,Label,PUB,UPC,ISRC,CopRNo,Royalty,Pyear,Date,FBDate,Remark} = req.body;
+        const {AlbumTitle,TrackTitles,Singer,Lyricist,Composers,Label,PUB,UPC,ISRC,CopRNo,Royalty,Pyear,Date,FBDate,Remark,Link} = req.body;
         const filter = {_id: new ObjectId(id)};
         const updateDoc = {
           $set:{
@@ -69,6 +69,7 @@ async function run() {
             Date:Date,
             FBDate:FBDate,
             Remark:Remark,
+            Link:Link
           }
         }
         const result = await musicCollection.updateMany(filter,updateDoc)
