@@ -50,21 +50,25 @@ async function run() {
 
     app.put('/api/music/:id',async(req,res)=>{
         const id = req.params.id;
-        const {title,singer,lyricist,composer,label,Distributor,ISRC,UPC,CopR,Year,Link} = req.body;
+        const {AlbumTitle,TrackTitles,Singer,Lyricist,Composers,Label,PUB,UPC,ISRC,CopRNo,Royalty,Pyear,Date,FBDate,Remark} = req.body;
         const filter = {_id: new ObjectId(id)};
         const updateDoc = {
           $set:{
-            title:title,
-            singer:singer,
-            lyricist:lyricist,
-            composer:composer,
-            label:label,
-            Distributor:Distributor,
-            ISRC:ISRC,
+            AlbumTitle:AlbumTitle,
+            TrackTitles:TrackTitles,
+            Singer:Singer,
+            Lyricist:Lyricist,
+            Composers:Composers,
+            Label:Label,
+            PUB:PUB,
             UPC:UPC,
-            CopR:CopR,
-            Year:Year,
-            Link:Link,
+            ISRC:ISRC,
+            CopRNo:CopRNo,
+            Royalty:Royalty,
+            Pyear:Pyear,
+            Date:Date,
+            FBDate:FBDate,
+            Remark:Remark,
           }
         }
         const result = await musicCollection.updateMany(filter,updateDoc)
