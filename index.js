@@ -52,6 +52,7 @@ async function run() {
         const id = req.params.id;
         const {AlbumTitle,TrackTitles,Singer,Lyricist,Composers,Label,PUB,UPC,ISRC,CopRNo,Royalty,Pyear,Date,FBDate,Remark,Link} = req.body;
         const filter = {_id: new ObjectId(id)};
+        const options = { upsert: true };
         const updateDoc = {
           $set:{
             AlbumTitle:AlbumTitle,
@@ -72,7 +73,7 @@ async function run() {
             Link:Link
           }
         }
-        const result = await musicCollection.updateMany(filter,updateDoc)
+        const result = await musicCollection.updateMany(filter,updateDoc,options)
         res.send(result)
     })
 
